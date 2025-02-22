@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clothing Store</title>
+    <div>
+        <form method="POST" enctype="multipart/form-data">
+            {%csrf_token%}
+            {{form.as_p}}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <style>
+        /* Global styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        /* Header */
+        header {
+            background-color: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        header .header-content h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        header .header-content p {
+            font-size: 1.2em;
+            font-weight: lighter;
+        }
+
+        /* Product Section */
+        .products {
+            padding: 40px 10%;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-bottom: 2px solid #f2f2f2;
+        }
+
+        .product-details {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .product-name {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .product-size, .product-colour {
+            font-size: 1.1em;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        .product-price {
+            font-size: 1.2em;
+            color: #e74c3c;
+            margin: 10px 0;
+        }
+
+        .view-button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .view-button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .product-grid {
+                padding: 0;
+            }
+            .product-card {
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Welcome to Our Clothing Store</h1>
+            <p>Your one-stop shop for trendy fashion!</p>
+        </div>
+    </header>
+
+    <section class="products">
+        <div class="product-grid">
+            {% for p_i in pro_img %}
+                <div class="product-card">
+                    <img src="{{ p_i.image.url }}" alt="{{ p_i.name }}" class="product-image">
+                    <div class="product-details">
+                        <h2 class="product-name">{{ p_i.name }}</h2>
+                        <p class="product-size">Size: {{ p_i.size }}</p>
+                        <p class="product-colour">Colour: {{ p_i.colour }}</p>
+                        <p class="product-price">${{ p_i.price }}</p>
+                        <button class="view-button">View More</button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Clothing Store | All Rights Reserved</p>
+    </footer>
+</body>
+</html>
